@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this code, configuration or dataset splits, please cite the accompanying paper."
+title: "SFCC-YOLOv8n: support-frequency-coupled lightweight detector for crop disease detection"
+authors:
+  - family-names: Shi
+    given-names: Yongkang
+  - family-names: Gao
+    given-names: Wenchao
+  - family-names: Song
+    given-names: Sen
+repository-code: "https://github.com/YongKang-Shi/SFCC-YOLOv8n"
+license: AGPL-3.0

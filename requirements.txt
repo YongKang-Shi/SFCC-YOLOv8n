@@ -1,0 +1,15 @@
+# Core environment used for all experiments in the paper
+torch==2.7.1
+torchvision
+
+# Must be exactly this version: the files in src/ultralytics_patch/ override its modules
+ultralytics==8.3.253
+
+numpy
+pillow
+pyyaml
+matplotlib
+scipy
+
+# Used for the deployment / latency measurements (ONNX Runtime CPU)
+onnxruntime

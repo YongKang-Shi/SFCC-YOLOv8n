@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Training artefacts
+runs/
+*.cache
+*.engine
+wandb/
+
+# Weights are not stored in this repository (available on request)
+*.pt
+*.onnx
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
