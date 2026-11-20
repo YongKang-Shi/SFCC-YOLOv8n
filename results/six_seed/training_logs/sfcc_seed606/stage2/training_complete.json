@@ -1,0 +1,17 @@
+{
+  "completed_at": "2026-10-03T22:31:30",
+  "seed": 606,
+  "model": "sfca",
+  "stage": 2,
+  "epochs": 2,
+  "warmup_epochs": 0.0,
+  "non_sfca_batchnorm_frozen": true,
+  "source_stage1": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed606_sfca_stage1\\weights\\best.pt",
+  "actual_epochs": 2,
+  "best_training_row": {
+    "epoch": 1,
+    "map50_95": 0.38368
+  },
+  "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed606_sfca_stage2\\weights\\best.pt",
+  "checkpoint_sha256": "9856682F55D0527DBC4717265F4BF74987680590DA41B1ECF3F100E37AABEE6E"
+}

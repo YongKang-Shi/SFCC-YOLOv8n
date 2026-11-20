@@ -1,0 +1,14 @@
+{
+  "completed_at": "2026-10-03T20:33:24",
+  "seed": 404,
+  "model": "sfca",
+  "max_epochs": 300,
+  "patience": 50,
+  "actual_epochs": 280,
+  "best_training_row": {
+    "epoch": 230,
+    "map50_95": 0.37143
+  },
+  "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed404_sfca_stage1\\weights\\best.pt",
+  "checkpoint_sha256": "A144284050A8D21EB80CAE16FA98F68125608F9A06D2DA939B34BA324D411536"
+}

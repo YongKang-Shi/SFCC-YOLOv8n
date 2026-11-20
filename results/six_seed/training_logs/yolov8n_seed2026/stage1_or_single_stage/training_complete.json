@@ -1,0 +1,14 @@
+{
+  "completed_at": "2026-10-03T09:09:30",
+  "seed": 2026,
+  "model": "yolov8n",
+  "max_epochs": 300,
+  "patience": 50,
+  "actual_epochs": 200,
+  "best_training_row": {
+    "epoch": 184,
+    "map50_95": 0.38507
+  },
+  "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-yolov8n-six-formal\\runs\\seed2026_yolov8n\\weights\\best.pt",
+  "checkpoint_sha256": "93CC30B218CF587395E7934320DA57FD36182B9F7640EEA9995CEB6F15E3E51B"
+}

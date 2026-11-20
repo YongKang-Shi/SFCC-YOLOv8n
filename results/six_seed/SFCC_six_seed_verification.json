@@ -1,0 +1,494 @@
+{
+  "source_directory": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\final-20261004-ablation",
+  "seeds": [
+    404,
+    101,
+    303,
+    2026,
+    3407,
+    606
+  ],
+  "raw_evaluation_json_count": 36,
+  "per_seed_csv_row_count": 36,
+  "max_json_to_csv_transcription_error": 0.0,
+  "primary_comparison": "SFCC SFC-on minus unmodified YOLOv8n SFC-off",
+  "paired_metrics": [
+    {
+      "metric": "precision",
+      "baseline_mean": 0.5483481481158501,
+      "baseline_sample_sd": 0.019386676456491635,
+      "sfcc_mean": 0.5791742241859278,
+      "sfcc_sample_sd": 0.025128465652070175,
+      "paired_difference_pp": 3.08260760700777,
+      "ci95_low_pp": 0.9407571602522442,
+      "ci95_high_pp": 5.224458053763296,
+      "paired_t_statistic": 3.699649121621921,
+      "df": 5,
+      "p_raw": 0.014004508419122152,
+      "wilcoxon_exact_p": 0.03125,
+      "seed_wins": 6,
+      "seed_differences_pp": {
+        "404": 3.9872355891929057,
+        "101": 0.7817705918784057,
+        "303": 2.156223944658986,
+        "2026": 2.18930809748743,
+        "3407": 6.6765197984623885,
+        "606": 2.7045876203665054
+      },
+      "p_holm": 0.04201352525736646
+    },
+    {
+      "metric": "recall",
+      "baseline_mean": 0.6033800896107803,
+      "baseline_sample_sd": 0.04250472189139013,
+      "sfcc_mean": 0.6065769797076926,
+      "sfcc_sample_sd": 0.019093160774148785,
+      "paired_difference_pp": 0.31968900969123937,
+      "ci95_low_pp": -2.944907383055656,
+      "ci95_high_pp": 3.5842854024381343,
+      "paired_t_statistic": 0.2517269097960946,
+      "df": 5,
+      "p_raw": 0.8112713235233099,
+      "wilcoxon_exact_p": 1.0,
+      "seed_wins": 3,
+      "seed_differences_pp": {
+        "404": 5.296133271911252,
+        "101": 2.398711514896945,
+        "303": -2.1859431906147364,
+        "2026": -1.802254862000019,
+        "3407": -2.5631244864774416,
+        "606": 0.7746118104314359
+      },
+      "p_holm": 0.8112713235233099
+    },
+    {
+      "metric": "f1",
+      "baseline_mean": 0.5734383422662849,
+      "baseline_sample_sd": 0.015568769636899732,
+      "sfcc_mean": 0.5920756480296198,
+      "sfcc_sample_sd": 0.012993732010473812,
+      "paired_difference_pp": 1.863730576333485,
+      "ci95_low_pp": 0.15572733317657655,
+      "ci95_high_pp": 3.5717338194903934,
+      "paired_t_statistic": 2.80495484248109,
+      "df": 5,
+      "p_raw": 0.03777221111031526,
+      "wilcoxon_exact_p": 0.03125,
+      "seed_wins": 6,
+      "seed_differences_pp": {
+        "404": 4.657669288558209,
+        "101": 1.5447622429070273,
+        "303": 0.38994698041420195,
+        "2026": 0.22227067449767102,
+        "3407": 2.5480568128176673,
+        "606": 1.8196774588061349
+      },
+      "p_holm": 0.07554442222063051
+    },
+    {
+      "metric": "map50",
+      "baseline_mean": 0.597910960651084,
+      "baseline_sample_sd": 0.019701105806618487,
+      "sfcc_mean": 0.629463103385066,
+      "sfcc_sample_sd": 0.013411660899354905,
+      "paired_difference_pp": 3.155214273398197,
+      "ci95_low_pp": 1.7474079424696143,
+      "ci95_high_pp": 4.56302060432678,
+      "paired_t_statistic": 5.761258721201497,
+      "df": 5,
+      "p_raw": 0.0022122815666814066,
+      "wilcoxon_exact_p": 0.03125,
+      "seed_wins": 6,
+      "seed_differences_pp": {
+        "404": 5.741611436645089,
+        "101": 2.9082013009514407,
+        "303": 3.3081888278871374,
+        "2026": 2.092285118421122,
+        "3407": 2.2499168954143722,
+        "606": 2.6310820610700225
+      },
+      "p_holm": 0.01327368940008844
+    },
+    {
+      "metric": "map50_95",
+      "baseline_mean": 0.46632772305842324,
+      "baseline_sample_sd": 0.014975093565932268,
+      "sfcc_mean": 0.4891606732839021,
+      "sfcc_sample_sd": 0.007420703834356763,
+      "paired_difference_pp": 2.283295022547888,
+      "ci95_low_pp": 1.1853461514407198,
+      "ci95_high_pp": 3.381243893655056,
+      "paired_t_statistic": 5.34578327556889,
+      "df": 5,
+      "p_raw": 0.0030747302344160676,
+      "wilcoxon_exact_p": 0.03125,
+      "seed_wins": 6,
+      "seed_differences_pp": {
+        "404": 4.081915198552477,
+        "101": 2.823713917443876,
+        "303": 2.316289222713536,
+        "2026": 1.6975759504366583,
+        "3407": 1.4460957903502991,
+        "606": 1.3341800557904793
+      },
+      "p_holm": 0.015373651172080338
+    },
+    {
+      "metric": "tail_ap_evaluable",
+      "baseline_mean": 0.4622415800738655,
+      "baseline_sample_sd": 0.027358421888980897,
+      "sfcc_mean": 0.5052410933498946,
+      "sfcc_sample_sd": 0.015636663454098813,
+      "paired_difference_pp": 4.299951327602916,
+      "ci95_low_pp": 2.0874178063925113,
+      "ci95_high_pp": 6.5124848488133225,
+      "paired_t_statistic": 4.995800820688379,
+      "df": 5,
+      "p_raw": 0.004119506616140467,
+      "wilcoxon_exact_p": 0.03125,
+      "seed_wins": 6,
+      "seed_differences_pp": {
+        "404": 6.5055009582629495,
+        "101": 5.421213463998631,
+        "303": 5.333162646829603,
+        "2026": 5.162342352215732,
+        "3407": 1.1164305544974995,
+        "606": 2.2610579898130867
+      },
+      "p_holm": 0.016478026464561868
+    }
+  ],
+  "checkpoint_inventory": [
+    {
+      "seed": 404,
+      "model": "yolov8n",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed404_yolov8n\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 6.272352,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed404_yolov8n\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed404_yolov8n\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed404_yolov8n\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "model": "yolov8n",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed101_yolov8n\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 6.275296,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed101_yolov8n\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed101_yolov8n\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed101_yolov8n\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 303,
+      "model": "yolov8n",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed303_yolov8n\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 6.272224,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed303_yolov8n\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed303_yolov8n\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed303_yolov8n\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 2026,
+      "model": "yolov8n",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-yolov8n-six-formal\\runs\\seed2026_yolov8n\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 6.271008,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-yolov8n-six-formal\\runs\\seed2026_yolov8n\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-yolov8n-six-formal\\runs\\seed2026_yolov8n\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-yolov8n-six-formal\\runs\\seed2026_yolov8n\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 3407,
+      "model": "yolov8n",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-yolov8n-six-formal\\runs\\seed3407_yolov8n\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 6.270176,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-yolov8n-six-formal\\runs\\seed3407_yolov8n\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-yolov8n-six-formal\\runs\\seed3407_yolov8n\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-yolov8n-six-formal\\runs\\seed3407_yolov8n\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 606,
+      "model": "yolov8n",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed606_yolov8n\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 6.269856,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed606_yolov8n\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed606_yolov8n\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-yolov8n-six-formal\\runs\\seed606_yolov8n\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 404,
+      "model": "sfcc",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed404_sfca_stage2\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 32.259631,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed404_sfca_stage2\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed404_sfca_stage2\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed404_sfca_stage2\\training_complete.json",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed404_sfca_stage1\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed404_sfca_stage1\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed404_sfca_stage1\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "model": "sfcc",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed101_sfca_stage2\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 32.259631,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed101_sfca_stage2\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed101_sfca_stage2\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed101_sfca_stage2\\training_complete.json",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed101_sfca_stage1\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed101_sfca_stage1\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed101_sfca_stage1\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 303,
+      "model": "sfcc",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed303_sfca_stage2\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 32.259631,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed303_sfca_stage2\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed303_sfca_stage2\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed303_sfca_stage2\\training_complete.json",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed303_sfca_stage1\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed303_sfca_stage1\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed303_sfca_stage1\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 2026,
+      "model": "sfcc",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed2026_sfca_stage2\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 32.259439,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed2026_sfca_stage2\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed2026_sfca_stage2\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed2026_sfca_stage2\\training_complete.json",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed2026_sfca_stage1\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed2026_sfca_stage1\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed2026_sfca_stage1\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 3407,
+      "model": "sfcc",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed3407_sfca_stage2\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 32.259567,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed3407_sfca_stage2\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed3407_sfca_stage2\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed3407_sfca_stage2\\training_complete.json",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed3407_sfca_stage1\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed3407_sfca_stage1\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261002-sfcc-six-formal\\runs\\seed3407_sfca_stage1\\training_complete.json",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "seed": 606,
+      "model": "sfcc",
+      "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed606_sfca_stage2\\weights\\best.pt",
+      "checkpoint_exists": true,
+      "checkpoint_size_mb": 32.259439,
+      "training_logs": [
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed606_sfca_stage2\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed606_sfca_stage2\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed606_sfca_stage2\\training_complete.json",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed606_sfca_stage1\\results.csv",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed606_sfca_stage1\\args.yaml",
+          "exists": true
+        },
+        {
+          "path": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed606_sfca_stage1\\training_complete.json",
+          "exists": true
+        }
+      ]
+    }
+  ],
+  "all_12_primary_checkpoints_exist": true,
+  "all_primary_training_logs_exist": true,
+  "notes": [
+    "The 36 evaluation JSON files cover three models, SFC on/off, and six seeds.",
+    "The ZIP includes training logs for the 12 primary checkpoints, not the checkpoint weights themselves.",
+    "No source file was modified."
+  ]
+}
