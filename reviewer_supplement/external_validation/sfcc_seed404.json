@@ -1,0 +1,53 @@
+{
+  "model": "sfcc",
+  "seed": 404,
+  "checkpoint": "C:\\Users\\SYK\\plantdoc-project\\sfca-seed-experiments\\revision-20261003-replication-sfcc-six-formal\\runs\\seed404_sfca_stage2\\weights\\best.pt",
+  "precision": 0.28989732747401575,
+  "recall": 0.2640925394545317,
+  "map50": 0.23371375179085652,
+  "map50_95": 0.16358613211492673,
+  "present_classes": {
+    "7": {
+      "class_name": "Corn Gray leaf spot",
+      "precision": 0.4936705805009116,
+      "recall": 0.14814814814814814,
+      "ap50": 0.17075595108739006,
+      "ap50_95": 0.08534926622383612
+    },
+    "8": {
+      "class_name": "Corn leaf blight",
+      "precision": 0.38675926792276133,
+      "recall": 0.4486301369863014,
+      "ap50": 0.3407059695829376,
+      "ap50_95": 0.18338922208608427
+    },
+    "9": {
+      "class_name": "Corn rust leaf",
+      "precision": 0.6674042596342865,
+      "recall": 0.5625,
+      "ap50": 0.6483613358427971,
+      "ap50_95": 0.5337570652377392
+    },
+    "23": {
+      "class_name": "Tomato leaf mosaic virus",
+      "precision": 0.04005850883458847,
+      "recall": 0.05263157894736842,
+      "ap50": 0.03748491497719922,
+      "ap50_95": 0.024927305041908383
+    },
+    "24": {
+      "class_name": "Tomato leaf yellow virus",
+      "precision": 0.04410988360060253,
+      "recall": 0.009009009009009009,
+      "ap50": 0.024791442378367157,
+      "ap50_95": 0.015172744911500117
+    },
+    "25": {
+      "class_name": "Tomato leaf",
+      "precision": 0.10738146435094403,
+      "recall": 0.36363636363636365,
+      "ap50": 0.18018289687644806,
+      "ap50_95": 0.13892118918849222
+    }
+  }
+}

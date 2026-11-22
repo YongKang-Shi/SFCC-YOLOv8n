@@ -21,6 +21,7 @@ reproduces the reported six metric means, sample standard deviations, 95% confid
 intervals and raw and Holm-adjusted p values. The JSON-to-CSV transcription check has zero
 numeric discrepancy.
 
-Checkpoint weights are not included in this directory. The verification inventory records
-their original locations and confirms that all 12 primary checkpoints and all expected
-training logs existed when the archive was assembled on 20 November 2026.
+Checkpoint weights are stored separately in `../../reproducibility/checkpoints/`. The
+verification inventory records their original locations and confirms that all 12 primary
+checkpoints and all expected training logs existed when the archive was assembled on
+20 November 2026.

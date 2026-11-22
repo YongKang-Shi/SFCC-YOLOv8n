@@ -9,9 +9,10 @@ runs/
 *.engine
 wandb/
 
-# Weights are not stored in this repository (available on request)
+# Training-output weights remain ignored; the audited primary checkpoints are released.
 *.pt
 *.onnx
+!reproducibility/checkpoints/*.pt
 
 # Editors / OS
 .vscode/

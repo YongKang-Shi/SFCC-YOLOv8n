@@ -1,0 +1,548 @@
+diff --git a/ultralytics/data/build.py b/ultralytics/data/build.py
+index 0892a2d..da5c5b5 100644
+--- a/ultralytics/data/build.py
++++ b/ultralytics/data/build.py
+@@ -57,6 +57,21 @@ class InfiniteDataLoader(dataloader.DataLoader):
+         """
+         self.iterator = self._get_iterator()
+ 
++    def close(self):
++        """Shut down persistent worker processes when a training stage ends."""
++        iterator = getattr(self, "iterator", None)
++        shutdown = getattr(iterator, "_shutdown_workers", None)
++        if shutdown is not None:
++            shutdown()
++        self.iterator = None
++
++    def __del__(self):
++        """Best-effort worker cleanup for sequential experiment pipelines."""
++        try:
++            self.close()
++        except Exception:
++            pass
++
+ 
+ class _RepeatSampler:
+     """
+diff --git a/ultralytics/engine/trainer.py b/ultralytics/engine/trainer.py
+index 0fa9839..ac762b3 100644
+--- a/ultralytics/engine/trainer.py
++++ b/ultralytics/engine/trainer.py
+@@ -247,12 +247,16 @@ class BaseTrainer:
+         )
+         always_freeze_names = [".dfl"]  # always freeze these layers
+         freeze_layer_names = [f"model.{x}." for x in freeze_list] + always_freeze_names
++        sfca_only = os.environ.get("ULTRALYTICS_SFCA_ONLY", "0") == "1"
+         for k, v in self.model.named_parameters():
+             # v.register_hook(lambda x: torch.nan_to_num(x))  # NaN to 0 (commented for erratic training results)
+-            if any(x in k for x in freeze_layer_names):
++            if sfca_only and ".sfca." not in k:
++                LOGGER.info(f"Freezing non-SFCA layer '{k}'")
++                v.requires_grad = False
++            elif any(x in k for x in freeze_layer_names):
+                 LOGGER.info(f"Freezing layer '{k}'")
+                 v.requires_grad = False
+-            elif not v.requires_grad:
++            elif not v.requires_grad and not sfca_only:
+                 LOGGER.info(
+                     f"WARNING ⚠️ setting 'requires_grad=True' for frozen layer '{k}'. "
+                     "See ultralytics.engine.trainer for customization of frozen layers."
+@@ -636,7 +640,7 @@ class BaseTrainer:
+                 resume = True
+                 self.args = get_cfg(ckpt_args)
+                 self.args.model = str(last)  # reinstate model
+-                for k in "imgsz", "batch":  # allow arg updates to reduce memory on resume if crashed due to CUDA OOM
++                for k in "imgsz", "batch", "workers", "cache":  # allow safe runtime/I/O updates when resuming
+                     if k in overrides:
+                         setattr(self.args, k, overrides[k])
+ 
+diff --git a/ultralytics/nn/modules/__init__.py b/ultralytics/nn/modules/__init__.py
+index 3c6739e..a627ac0 100644
+--- a/ultralytics/nn/modules/__init__.py
++++ b/ultralytics/nn/modules/__init__.py
+@@ -25,9 +25,15 @@ from .block import (
+     DFL,
+     SPP,
+     SPPF,
++    LSKA,
++    LSPA,
+     Bottleneck,
+     BottleneckCSP,
+     C2f,
++    C2fGhost,
++    SFCA,
++    SFCAC2fGhost,
++    iRMB,
+     C3Ghost,
+     C3x,
+     GhostBottleneck,
+@@ -52,7 +58,7 @@ from .conv import (
+     RepConv,
+     SpatialAttention,
+ )
+-from .head import OBB, Classify, Detect, Pose, RTDETRDecoder, Segment
++from .head import OBB, Classify, Detect, DetectSFC, Pose, RTDETRDecoder, Segment
+ from .transformer import (
+     AIFI,
+     MLP,
+@@ -89,10 +95,16 @@ __all__ = (
+     "HGStem",
+     "SPP",
+     "SPPF",
++    "LSKA",
++    "LSPA",
+     "C1",
+     "C2",
+     "C3",
+     "C2f",
++    "C2fGhost",
++    "SFCA",
++    "SFCAC2fGhost",
++    "iRMB",
+     "C3x",
+     "C3TR",
+     "C3Ghost",
+@@ -101,6 +113,7 @@ __all__ = (
+     "BottleneckCSP",
+     "Proto",
+     "Detect",
++    "DetectSFC",
+     "Segment",
+     "Pose",
+     "Classify",
+diff --git a/ultralytics/nn/modules/block.py b/ultralytics/nn/modules/block.py
+index 5a6d12f..60c3fc3 100644
+--- a/ultralytics/nn/modules/block.py
++++ b/ultralytics/nn/modules/block.py
+@@ -14,10 +14,16 @@ __all__ = (
+     "HGStem",
+     "SPP",
+     "SPPF",
++    "LSKA",
++    "LSPA",
+     "C1",
+     "C2",
+     "C3",
+     "C2f",
++    "C2fGhost",
++    "SFCA",
++    "SFCAC2fGhost",
++    "iRMB",
+     "C3x",
+     "C3TR",
+     "C3Ghost",
+@@ -167,6 +173,36 @@ class SPPF(nn.Module):
+         return self.cv2(torch.cat((x, y1, y2, self.m(y2)), 1))
+ 
+ 
++
++class LSKA(nn.Module):
++    """Large Separable Kernel Attention (LSKA) module used by TGL-YOLO."""
++
++    def __init__(self, c: int, k_size: int = 11):
++        super().__init__()
++        self.conv = Conv(c, c, k_size, g=c)
++
++    def forward(self, x: torch.Tensor) -> torch.Tensor:
++        return self.conv(x)
++
++
++class LSPA(nn.Module):
++    """Spatial Pyramid Pooling-Fast enhanced with LSKA."""
++
++    def __init__(self, c1: int, c2: int, k: int = 5):
++        super().__init__()
++        c_ = c1 // 2
++        self.cv1 = Conv(c1, c_, 1, 1)
++        self.cv2 = Conv(c_ * 4, c2, 1, 1)
++        self.m = nn.MaxPool2d(kernel_size=k, stride=1, padding=k // 2)
++        self.lska = LSKA(c_ * 4, k_size=11)
++
++    def forward(self, x: torch.Tensor) -> torch.Tensor:
++        x = self.cv1(x)
++        y1 = self.m(x)
++        y2 = self.m(y1)
++        return self.cv2(self.lska(torch.cat((x, y1, y2, self.m(y2)), 1)))
++
++
+ class C1(nn.Module):
+     """CSP Bottleneck with 1 convolution."""
+ 
+@@ -228,6 +264,186 @@ class C2f(nn.Module):
+         return self.cv2(torch.cat(y, 1))
+ 
+ 
++class C2fGhost(C2f):
++    """C2f module that replaces each Bottleneck with a GhostBottleneck."""
++
++    def __init__(self, c1, c2, n=1, shortcut=False, g=1, e=0.5):
++        """Initialize C2fGhost with the same interface as C2f."""
++        super().__init__(c1, c2, n, shortcut, g, e)
++        self.m = nn.ModuleList(GhostBottleneck(self.c, self.c) for _ in range(n))
++
++
++class SFCA(nn.Module):
++    """Support-aware Frequency-Coupled Attention before a neck C2fGhost block."""
++
++    def __init__(
++        self,
++        c1,
++        nc,
++        class_image_counts,
++        num_train_images,
++        epsilon=1.0,
++        tau=10.0,
++        rarity_max=2.0,
++        gate_scale=1.5,
++        bottleneck=16,
++    ):
++        super().__init__()
++        if len(class_image_counts) != nc:
++            raise ValueError(f"SFCA expected {nc} support counts, got {len(class_image_counts)}")
++
++        counts = torch.tensor(class_image_counts, dtype=torch.float32)
++        frequency = (counts + epsilon) / (float(num_train_images) + nc * epsilon)
++        positive_rarity = torch.relu(torch.log((1.0 / nc) / frequency))
++        reliability = counts / (counts + tau)
++        rarity = torch.clamp(reliability * positive_rarity, 0.0, rarity_max) / rarity_max
++
++        self.nc = int(nc)
++        self.gate_scale = float(gate_scale)
++        self.register_buffer("rarity", rarity.view(1, nc, 1, 1), persistent=True)
++        self.response = nn.Sequential(
++            Conv(c1, bottleneck, 1, 1),
++            nn.Conv2d(bottleneck, nc, 1, bias=True),
++        )
++        self.spatial_dw = nn.Conv2d(3, 3, 3, padding=1, groups=3, bias=False)
++        self.spatial_bn = nn.BatchNorm2d(3)
++        self.spatial_act = nn.SiLU()
++        self.spatial_pw = nn.Conv2d(3, 1, 1, bias=True)
++        self.gamma = nn.Parameter(torch.ones(1))
++        self.capture_response = False
++        self.last_response_logits = None
++
++    def forward(self, x):
++        q = self.response(x)
++        self.last_response_logits = q if self.capture_response else None
++        rare_response = (q.sigmoid() * self.rarity).mean(1, keepdim=True)
++        descriptor = torch.cat((x.mean(1, keepdim=True), x.amax(1, keepdim=True), rare_response), 1)
++        attention = torch.sigmoid(self.spatial_pw(self.spatial_act(self.spatial_bn(self.spatial_dw(descriptor)))))
++        centered = attention - attention.mean((2, 3), keepdim=True)
++        return x * (1.0 + self.gate_scale * self.gamma * centered)
++
++
++class SFCAC2fGhost(nn.Module):
++    """One graph layer implementing Concat -> SFCA -> C2fGhost without changing YOLO layer indices."""
++
++    def __init__(
++        self,
++        c1,
++        c2,
++        n,
++        nc,
++        class_image_counts,
++        num_train_images,
++        epsilon=1.0,
++        tau=10.0,
++        rarity_max=2.0,
++        gate_scale=1.5,
++        bottleneck=16,
++    ):
++        super().__init__()
++        self.sfca = SFCA(
++            c1,
++            nc,
++            class_image_counts,
++            num_train_images,
++            epsilon,
++            tau,
++            rarity_max,
++            gate_scale,
++            bottleneck,
++        )
++        self.ghost = C2fGhost(c1, c2, n)
++
++    def forward(self, x):
++        return self.ghost(self.sfca(x))
++
++
++class iRMB(nn.Module):
++    """Inverted Residual Mobile Block with window attention and depthwise convolution."""
++
++    def __init__(
++        self,
++        c1,
++        c2,
++        exp_ratio=1.0,
++        dim_head=64,
++        window_size=7,
++        dw_ks=3,
++        attn_s=True,
++        qkv_bias=False,
++    ):
++        """Initialize the iRMB used in the thesis (expansion ratio 1 and 7x7 windows by default)."""
++        super().__init__()
++        c_mid = int(c1 * exp_ratio)
++        if c1 % dim_head != 0:
++            raise ValueError(f"iRMB input channels {c1} must be divisible by dim_head {dim_head}")
++        self.has_skip = c1 == c2
++        self.attn_s = attn_s
++        self.window_size = window_size
++        self.num_head = c1 // dim_head
++        self.scale = dim_head**-0.5
++        self.c_mid = c_mid
++
++        self.norm = nn.BatchNorm2d(c1)
++        if attn_s:
++            self.qk = nn.Conv2d(c1, 2 * c1, 1, bias=qkv_bias)
++            self.v = nn.Sequential(nn.Conv2d(c1, c_mid, 1, bias=qkv_bias), nn.ReLU(inplace=True))
++        else:
++            self.qk = None
++            self.v = nn.Sequential(nn.Conv2d(c1, c_mid, 1, bias=qkv_bias), nn.ReLU(inplace=True))
++
++        pad = dw_ks // 2
++        self.conv_local = nn.Sequential(
++            nn.Conv2d(c_mid, c_mid, dw_ks, 1, pad, groups=c_mid, bias=False),
++            nn.BatchNorm2d(c_mid),
++            nn.SiLU(inplace=True),
++        )
++        self.proj = nn.Conv2d(c_mid, c2, 1, bias=False)
++
++    def _window_attention(self, x):
++        b0, c0, h0, w0 = x.shape
++        ws = self.window_size if self.window_size > 0 else max(h0, w0)
++        pad_r = (ws - w0 % ws) % ws
++        pad_b = (ws - h0 % ws) % ws
++        x = F.pad(x, (0, pad_r, 0, pad_b))
++        hp, wp = h0 + pad_b, w0 + pad_r
++        nh, nw = hp // ws, wp // ws
++
++        # B,C,Hp,Wp -> (B*nh*nw),C,ws,ws
++        x = x.view(b0, c0, nh, ws, nw, ws).permute(0, 2, 4, 1, 3, 5)
++        x = x.reshape(b0 * nh * nw, c0, ws, ws)
++        bw, _, _, _ = x.shape
++        tokens = ws * ws
++
++        qk = self.qk(x).reshape(bw, 2, self.num_head, c0 // self.num_head, tokens)
++        qk = qk.permute(1, 0, 2, 4, 3).contiguous()
++        q, k = qk[0], qk[1]
++        attn = (q @ k.transpose(-2, -1)) * self.scale
++        attn = attn.softmax(dim=-1)
++
++        v = self.v(x)
++        if self.c_mid % self.num_head != 0:
++            raise ValueError("iRMB expanded channels must be divisible by the number of attention heads")
++        v = v.reshape(bw, self.num_head, self.c_mid // self.num_head, tokens)
++        v = v.permute(0, 1, 3, 2).contiguous()
++        x = attn @ v
++        x = x.permute(0, 1, 3, 2).reshape(bw, self.c_mid, ws, ws)
++
++        # (B*nh*nw),C,ws,ws -> B,C,Hp,Wp
++        x = x.view(b0, nh, nw, self.c_mid, ws, ws).permute(0, 3, 1, 4, 2, 5)
++        x = x.reshape(b0, self.c_mid, hp, wp)
++        return x[:, :, :h0, :w0].contiguous()
++
++    def forward(self, x):
++        """Apply normalized window attention, local DWConv, projection, and residual connection."""
++        shortcut = x
++        x = self.norm(x)
++        x = self._window_attention(x) if self.attn_s else self.v(x)
++        x = x + self.conv_local(x)
++        x = self.proj(x)
++        return shortcut + x if self.has_skip else x
++
++
+ class C3(nn.Module):
+     """CSP Bottleneck with 3 convolutions."""
+ 
+diff --git a/ultralytics/nn/modules/head.py b/ultralytics/nn/modules/head.py
+index d5951ba..a6eaa15 100644
+--- a/ultralytics/nn/modules/head.py
++++ b/ultralytics/nn/modules/head.py
+@@ -14,7 +14,7 @@ from .conv import Conv
+ from .transformer import MLP, DeformableTransformerDecoder, DeformableTransformerDecoderLayer
+ from .utils import bias_init_with_prob, linear_init_
+ 
+-__all__ = "Detect", "Segment", "Pose", "Classify", "OBB", "RTDETRDecoder"
++__all__ = "Detect", "DetectSFC", "Segment", "Pose", "Classify", "OBB", "RTDETRDecoder"
+ 
+ 
+ class Detect(nn.Module):
+@@ -88,6 +88,41 @@ class Detect(nn.Module):
+         return dist2bbox(self.dfl(bboxes), self.anchors.unsqueeze(0), xywh=True, dim=1) * self.strides
+ 
+ 
++class DetectSFC(Detect):
++    """YOLOv8 detection head with validation/inference-time support-frequency calibration."""
++
++    def __init__(self, nc=80, class_image_counts=(), num_train_images=1, epsilon=1.0, tau=10.0, beta=1.0, ch=()):
++        super().__init__(nc, ch)
++        if len(class_image_counts) != nc:
++            raise ValueError(f"DetectSFC expected {nc} support counts, got {len(class_image_counts)}")
++        counts = torch.tensor(class_image_counts, dtype=torch.float32)
++        frequency = (counts + epsilon) / (float(num_train_images) + nc * epsilon)
++        signed_adjustment = torch.log((1.0 / nc) / frequency)
++        gate = (counts >= tau).to(torch.float32)
++        self.register_buffer("class_logit_bias", (float(beta) * gate * signed_adjustment).view(1, nc, 1, 1))
++
++    def forward(self, x):
++        """Apply SFC only outside training, before sigmoid and NMS."""
++        raw = []
++        for i in range(self.nl):
++            yi = torch.cat((self.cv2[i](x[i]), self.cv3[i](x[i])), 1)
++            if not self.training:
++                yi = torch.cat((yi[:, : self.reg_max * 4], yi[:, self.reg_max * 4 :] + self.class_logit_bias), 1)
++            raw.append(yi)
++        if self.training:
++            return raw
++
++        shape = raw[0].shape
++        x_cat = torch.cat([xi.view(shape[0], self.no, -1) for xi in raw], 2)
++        if self.dynamic or self.shape != shape:
++            self.anchors, self.strides = (x.transpose(0, 1) for x in make_anchors(raw, self.stride, 0.5))
++            self.shape = shape
++        box, cls = x_cat.split((self.reg_max * 4, self.nc), 1)
++        dbox = self.decode_bboxes(box)
++        y = torch.cat((dbox, cls.sigmoid()), 1)
++        return y if self.export else (y, raw)
++
++
+ class Segment(Detect):
+     """YOLOv8 Segment head for segmentation models."""
+ 
+diff --git a/ultralytics/nn/tasks.py b/ultralytics/nn/tasks.py
+index 8efd8e3..382f57d 100644
+--- a/ultralytics/nn/tasks.py
++++ b/ultralytics/nn/tasks.py
+@@ -16,9 +16,14 @@ from ultralytics.nn.modules import (
+     OBB,
+     SPP,
+     SPPF,
++    LSPA,
+     Bottleneck,
+     BottleneckCSP,
+     C2f,
++    C2fGhost,
++    SFCA,
++    SFCAC2fGhost,
++    iRMB,
+     C3Ghost,
+     C3x,
+     Classify,
+@@ -27,6 +32,7 @@ from ultralytics.nn.modules import (
+     Conv2,
+     ConvTranspose,
+     Detect,
++    DetectSFC,
+     DWConv,
+     DWConvTranspose2d,
+     Focus,
+@@ -763,12 +769,16 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
+             GhostBottleneck,
+             SPP,
+             SPPF,
++            LSPA,
+             DWConv,
+             Focus,
+             BottleneckCSP,
+             C1,
+             C2,
+             C2f,
++            C2fGhost,
++            SFCAC2fGhost,
++            iRMB,
+             C3,
+             C3TR,
+             C3Ghost,
+@@ -782,9 +792,12 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
+                 c2 = make_divisible(min(c2, max_channels) * width, 8)
+ 
+             args = [c1, c2, *args[1:]]
+-            if m in (BottleneckCSP, C1, C2, C2f, C3, C3TR, C3Ghost, C3x, RepC3):
++            if m in (BottleneckCSP, C1, C2, C2f, C2fGhost, SFCAC2fGhost, C3, C3TR, C3Ghost, C3x, RepC3):
+                 args.insert(2, n)  # number of repeats
+                 n = 1
++        elif m is SFCA:
++            c1 = c2 = ch[f]
++            args = [c1, *args]
+         elif m is AIFI:
+             args = [ch[f], *args]
+         elif m in (HGStem, HGBlock):
+@@ -799,7 +812,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
+             args = [ch[f]]
+         elif m is Concat:
+             c2 = sum(ch[x] for x in f)
+-        elif m in (Detect, Segment, Pose, OBB):
++        elif m in (Detect, DetectSFC, Segment, Pose, OBB):
+             args.append([ch[x] for x in f])
+             if m is Segment:
+                 args[2] = make_divisible(min(args[2], max_channels) * width, 8)
+diff --git a/ultralytics/utils/loss.py b/ultralytics/utils/loss.py
+index 900338d..680c267 100644
+--- a/ultralytics/utils/loss.py
++++ b/ultralytics/utils/loss.py
+@@ -165,6 +165,56 @@ class v8DetectionLoss:
+         self.assigner = TaskAlignedAssigner(topk=10, num_classes=self.nc, alpha=0.5, beta=6.0)
+         self.bbox_loss = BboxLoss(m.reg_max - 1, use_dfl=self.use_dfl).to(device)
+         self.proj = torch.arange(m.reg_max, dtype=torch.float, device=device)
++        self.sfca_modules = [module for module in model.modules() if module.__class__.__name__ == "SFCA"]
++        for module in self.sfca_modules:
++            module.capture_response = True
++        self.response_weight = 0.05
++
++    def response_loss(self, batch):
++        """Focal-BCE supervision for the four class-response maps using soft box regions."""
++        logits_by_scale = [module.last_response_logits for module in self.sfca_modules]
++        if not logits_by_scale or any(logits is None for logits in logits_by_scale):
++            return torch.zeros((), device=self.device)
++        if not logits_by_scale[0].requires_grad:
++            return torch.zeros((), device=self.device)
++
++        batch_idx = batch["batch_idx"].view(-1).long().to(self.device)
++        classes = batch["cls"].view(-1).long().to(self.device)
++        boxes = batch["bboxes"].to(self.device)
++        scale_losses = []
++        for logits in logits_by_scale:
++            bs, nc, height, width = logits.shape
++            flat_targets = torch.zeros((bs * nc, height * width), device=self.device, dtype=logits.dtype)
++            valid = (batch_idx >= 0) & (batch_idx < bs) & (classes >= 0) & (classes < nc)
++            if valid.any():
++                valid_boxes = boxes[valid].to(logits.dtype)
++                valid_batch = batch_idx[valid]
++                valid_classes = classes[valid]
++                cx = valid_boxes[:, 0:1, None] * width
++                cy = valid_boxes[:, 1:2, None] * height
++                bw = (valid_boxes[:, 2:3, None] * width).clamp_min(1.0)
++                bh = (valid_boxes[:, 3:4, None] * height).clamp_min(1.0)
++                xx = torch.arange(width, device=self.device, dtype=logits.dtype).view(1, 1, width) + 0.5
++                yy = torch.arange(height, device=self.device, dtype=logits.dtype).view(1, height, 1) + 0.5
++                dx = (xx - cx) / bw
++                dy = (yy - cy) / bh
++                inside = (dx.abs() <= 0.5) & (dy.abs() <= 0.5)
++                soft = (torch.exp(-2.0 * (dx.square() + dy.square())) * inside).to(logits.dtype).flatten(1)
++                target_rows = (valid_batch * nc + valid_classes).view(-1, 1).expand_as(soft)
++                flat_targets.scatter_reduce_(0, target_rows, soft, reduce="amax", include_self=True)
++            targets = flat_targets.view(bs, nc, height, width)
++
++            ce = F.binary_cross_entropy_with_logits(logits, targets, reduction="none")
++            probability = logits.sigmoid()
++            p_t = targets * probability + (1.0 - targets) * (1.0 - probability)
++            alpha_t = targets * 0.25 + (1.0 - targets) * 0.75
++            scale_losses.append((ce * (1.0 - p_t).pow(2.0) * alpha_t).mean())
++        result = torch.stack(scale_losses).mean()
++        # Do not retain non-leaf graph tensors on the module: Ultralytics deep-copies
++        # the model for EMA/checkpoint serialization after each epoch.
++        for module in self.sfca_modules:
++            module.last_response_logits = None
++        return result
+ 
+     def preprocess(self, targets, batch_size, scale_tensor):
+         """Preprocesses the target counts and matches with the input batch size to output a tensor."""
+@@ -242,6 +292,7 @@ class v8DetectionLoss:
+         loss[0] *= self.hyp.box  # box gain
+         loss[1] *= self.hyp.cls  # cls gain
+         loss[2] *= self.hyp.dfl  # dfl gain
++        loss[1] += self.response_weight * self.response_loss(batch)
+ 
+         return loss.sum() * batch_size, loss.detach()  # loss(box, cls, dfl)
+ 

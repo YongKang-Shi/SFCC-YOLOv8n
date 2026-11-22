@@ -11,6 +11,6 @@ with random seed 404 and identical training and evaluation settings.
 | `deployment_table.md` | Deployment and efficiency measurements on the same hardware and protocol (manuscript Table 7) |
 | `six_seed/` | Raw per-seed evaluation JSON files, per-seed and summary CSV files, primary-run training logs and independent statistical verification for manuscript Tables 2, 3, 5 and 6 |
 
-The per-run result files of the six-seed study are available in `six_seed/`. The trained
-model weights are not stored in this repository; they are available from the corresponding
-author on reasonable request.
+The per-run result files of the six-seed study are available in `six_seed/`. The twelve
+corresponding best checkpoints are stored in `../reproducibility/checkpoints/`, with their
+SHA-256 hashes and source-environment records in the same package.

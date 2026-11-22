@@ -1,0 +1,38 @@
+{
+  "source": "FieldPlant Kaggle dataset, Roboflow version 11",
+  "source_paper_doi": "10.1109/ACCESS.2023.3263042",
+  "source_license": "CC BY 4.0",
+  "selection_policy": "All class-exact images, with a deterministic SHA-256 filename cap of 200 images per source class.",
+  "selected_images": 367,
+  "selected_boxes": 553,
+  "images_by_source_class": {
+    "19": 200,
+    "20": 46,
+    "24": 13,
+    "25": 13,
+    "26": 65,
+    "8": 30
+  },
+  "boxes_by_mapped_class": {
+    "7": 54,
+    "8": 297,
+    "9": 49,
+    "23": 19,
+    "24": 112,
+    "25": 22
+  },
+  "image_dimensions": {
+    "1920x2560": 3,
+    "2340x4160": 3,
+    "2448x2448": 4,
+    "2448x3264": 6,
+    "2560x1920": 4,
+    "3120x3120": 217,
+    "3120x4160": 52,
+    "3264x2448": 2,
+    "3456x4608": 48,
+    "4160x2340": 7,
+    "4160x3120": 19,
+    "4608x3456": 2
+  }
+}

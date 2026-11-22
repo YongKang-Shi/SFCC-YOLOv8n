@@ -1,0 +1,22 @@
+{
+  "source": "FieldPlant Kaggle dataset, Roboflow version 11",
+  "plantdoc_files_compared": 2592,
+  "source_mapped_images": 367,
+  "excluded_plantdoc_duplicates": 1,
+  "excluded_internal_duplicates": 5,
+  "retained_images": 361,
+  "retained_boxes": 546,
+  "retained_box_counts": {
+    "7": 54,
+    "8": 292,
+    "9": 48,
+    "23": 19,
+    "24": 111,
+    "25": 22
+  },
+  "duplicate_thresholds": {
+    "exact": "SHA-256",
+    "phash_hamming_max": 8,
+    "dhash_hamming_max": 8
+  }
+}

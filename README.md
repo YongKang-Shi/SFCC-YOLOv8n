@@ -4,8 +4,9 @@ Code, model configuration and dataset splits for **SFCC-YOLOv8n**, a support-fre
 lightweight detector for crop disease detection on low-power field devices. All results reported
 in the manuscript were obtained on the 29-class PlantDoc benchmark.
 
-The trained model weights are not stored in this repository; they are available from the
-corresponding author on reasonable request.
+The twelve best checkpoints for the primary six-seed comparison are stored in
+`reproducibility/checkpoints/`. Their SHA-256 hashes and corresponding per-seed metrics are
+included in the same reproducibility package.
 
 ## Contents
 
@@ -13,6 +14,8 @@ corresponding author on reasonable request.
 |---|---|
 | `configs/` | Model definitions: `yolov8n-sfca-c2fghost-plantdoc-github.yaml` (SFCC-YOLOv8n: C2fGhost neck + SGCRA + DetectSFC) and `yolov8n-c2fghost-plantdoc-github.yaml` (C2fGhost variant used in the ablation) |
 | `src/ultralytics_patch/` | The seven Ultralytics 8.3.253 files that we modified: C2fGhost and SGCRA (SFCA) in `nn/modules/block.py`, the SFC detection head in `nn/modules/head.py`, module registration in `nn/modules/__init__.py` and `nn/tasks.py`, the auxiliary response loss (weight 0.05) in `utils/loss.py`, the stage-2 SFCA-only freezing in `engine/trainer.py`, and deterministic shuffling in `data/build.py` |
+| `reproducibility/` | The preserved Ultralytics 8.1.0 six-seed package: seven-file source patch, exact splits, environment records, 12 primary result files, 36 ablation records, 12 best checkpoints and SHA-256 manifest |
+| `reviewer_supplement/` | FieldPlant selection and duplicate audit, class mapping, portable remapped labels, per-seed external metrics, six-seed confusion counts and analysis scripts; raw dataset images are not redistributed |
 | `splits/` | `plantdoc_val.yaml` (29 classes, train/val/test paths), the exact `train_list.txt` / `val_list.txt` / `test_list.txt` used in the paper (2119 / 236 / 237 images), and `split_verification.txt` (class-wise counts, zero overlap between the three splits, random seed 20261002) |
 | `results/` | Result files behind the comparison and deployment tables (`same_setting_comparison.csv`, `deployment_table.md`) |
 | `train/` | Entry points: `run_sfcc_revision_six.py` and `run_yolov8n_revision_six.py` (six-seed study), `run_unified.py` (same-setting comparison of five detectors, seed 404), `run_sfcc_clean.py` (two-stage SFCC training) |
@@ -38,7 +41,14 @@ described as SGCRA, the SGCRA-C2fGhost neck block and the SFC detection head in 
 - Single NVIDIA GeForce RTX 5060 Laptop GPU (8 GB), Windows
 - Evaluation protocol used throughout: `conf = 0.001`, NMS `IoU = 0.7`, `max_det = 300`
 
+The preserved six-seed and ablation experiments under `reproducibility/` use the separately
+documented Ultralytics 8.1.0 source tree. The comparison and deployment workflow below uses
+Ultralytics 8.3.253; the two environments are not mixed.
+
 ## Reproducing the results in three steps
+
+For the preserved Ultralytics 8.1.0 experiments, follow `reproducibility/README.md`.
+The following three steps apply to the Ultralytics 8.3.253 comparison workflow.
 
 **1. Install the exact Ultralytics version**
 

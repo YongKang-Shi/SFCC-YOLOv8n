@@ -1,0 +1,85 @@
+{
+  "case": "yolov8n_seed303",
+  "test_ground_truth_count": 452,
+  "target_classes": {
+    "21": {
+      "class_name": "Tomato leaf bacterial spot",
+      "test_boxes": 14,
+      "correct_count": 8.0,
+      "correct_rate": 0.5714285714285714,
+      "background_count": 0.0,
+      "background_rate": 0.0,
+      "top_confusion_class": "Tomato Septoria leaf spot",
+      "top_confusion_count": 5.0,
+      "top_confusion_rate": 0.35714285714285715,
+      "confusion_counts": {
+        "Bell_pepper leaf spot": 1.0,
+        "Tomato Septoria leaf spot": 5.0
+      }
+    },
+    "22": {
+      "class_name": "Tomato leaf late blight",
+      "test_boxes": 14,
+      "correct_count": 9.0,
+      "correct_rate": 0.6428571428571429,
+      "background_count": 0.0,
+      "background_rate": 0.0,
+      "top_confusion_class": "Potato leaf late blight",
+      "top_confusion_count": 3.0,
+      "top_confusion_rate": 0.21428571428571427,
+      "confusion_counts": {
+        "Potato leaf late blight": 3.0,
+        "Tomato Early blight leaf": 1.0,
+        "Tomato leaf": 1.0
+      }
+    },
+    "26": {
+      "class_name": "Tomato mold leaf",
+      "test_boxes": 16,
+      "correct_count": 3.0,
+      "correct_rate": 0.1875,
+      "background_count": 3.0,
+      "background_rate": 0.1875,
+      "top_confusion_class": "Tomato leaf mosaic virus",
+      "top_confusion_count": 3.0,
+      "top_confusion_rate": 0.1875,
+      "confusion_counts": {
+        "Bell_pepper leaf spot": 1.0,
+        "Potato leaf early blight": 1.0,
+        "Potato leaf late blight": 1.0,
+        "Tomato leaf bacterial spot": 2.0,
+        "Tomato leaf late blight": 2.0,
+        "Tomato leaf mosaic virus": 3.0
+      }
+    },
+    "17": {
+      "class_name": "Strawberry leaf",
+      "test_boxes": 30,
+      "correct_count": 30.0,
+      "correct_rate": 1.0,
+      "background_count": 0.0,
+      "background_rate": 0.0,
+      "top_confusion_class": "None",
+      "top_confusion_count": 0.0,
+      "top_confusion_rate": 0.0,
+      "confusion_counts": {}
+    },
+    "25": {
+      "class_name": "Tomato leaf",
+      "test_boxes": 27,
+      "correct_count": 13.0,
+      "correct_rate": 0.48148148148148145,
+      "background_count": 7.0,
+      "background_rate": 0.25925925925925924,
+      "top_confusion_class": "Bell_pepper leaf",
+      "top_confusion_count": 3.0,
+      "top_confusion_rate": 0.1111111111111111,
+      "confusion_counts": {
+        "Bell_pepper leaf": 3.0,
+        "Tomato leaf mosaic virus": 2.0,
+        "Tomato leaf yellow virus": 1.0,
+        "Tomato mold leaf": 1.0
+      }
+    }
+  }
+}

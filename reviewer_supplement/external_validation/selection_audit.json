@@ -1,0 +1,364 @@
+{
+  "selection_policy": "All class-exact images, with a deterministic SHA-256 filename cap of 200 images per source class.",
+  "available_class_exact_images": 1246,
+  "selected_images": 367,
+  "selected_boxes": 553,
+  "source_class_image_counts": {
+    "8": 30,
+    "19": 200,
+    "20": 46,
+    "24": 13,
+    "25": 13,
+    "26": 65
+  },
+  "mapped_box_counts": {
+    "7": 54,
+    "8": 297,
+    "9": 49,
+    "23": 19,
+    "24": 112,
+    "25": 22
+  },
+  "all_class_ids": {
+    "8": 7,
+    "19": 8,
+    "20": 9,
+    "24": 25,
+    "25": 23,
+    "26": 24
+  },
+  "excluded_images_with_mapped_and_unmapped_classes": 160,
+  "download_ranges": [
+    {
+      "start": 21835885,
+      "end": 104006762,
+      "entries": 21,
+      "bytes": 82170877
+    },
+    {
+      "start": 115756700,
+      "end": 119380637,
+      "entries": 2,
+      "bytes": 3623937
+    },
+    {
+      "start": 131930584,
+      "end": 149729990,
+      "entries": 4,
+      "bytes": 17799406
+    },
+    {
+      "start": 159177321,
+      "end": 161956058,
+      "entries": 2,
+      "bytes": 2778737
+    },
+    {
+      "start": 170704805,
+      "end": 176276446,
+      "entries": 3,
+      "bytes": 5571641
+    },
+    {
+      "start": 190607104,
+      "end": 202590393,
+      "entries": 4,
+      "bytes": 11983289
+    },
+    {
+      "start": 215715410,
+      "end": 237395382,
+      "entries": 5,
+      "bytes": 21679972
+    },
+    {
+      "start": 251437044,
+      "end": 328154783,
+      "entries": 48,
+      "bytes": 76717739
+    },
+    {
+      "start": 342026546,
+      "end": 344061064,
+      "entries": 2,
+      "bytes": 2034518
+    },
+    {
+      "start": 374527698,
+      "end": 375978819,
+      "entries": 2,
+      "bytes": 1451121
+    },
+    {
+      "start": 431669965,
+      "end": 432434239,
+      "entries": 1,
+      "bytes": 764274
+    },
+    {
+      "start": 498086061,
+      "end": 498816520,
+      "entries": 1,
+      "bytes": 730459
+    },
+    {
+      "start": 509923548,
+      "end": 510660766,
+      "entries": 1,
+      "bytes": 737218
+    },
+    {
+      "start": 524583178,
+      "end": 568130426,
+      "entries": 36,
+      "bytes": 43547248
+    },
+    {
+      "start": 718227305,
+      "end": 726790285,
+      "entries": 2,
+      "bytes": 8562980
+    },
+    {
+      "start": 742349817,
+      "end": 747486416,
+      "entries": 2,
+      "bytes": 5136599
+    },
+    {
+      "start": 758223042,
+      "end": 762290052,
+      "entries": 2,
+      "bytes": 4067010
+    },
+    {
+      "start": 771139228,
+      "end": 793105994,
+      "entries": 5,
+      "bytes": 21966766
+    },
+    {
+      "start": 825743554,
+      "end": 844280720,
+      "entries": 3,
+      "bytes": 18537166
+    },
+    {
+      "start": 853483825,
+      "end": 868269417,
+      "entries": 5,
+      "bytes": 14785592
+    },
+    {
+      "start": 877567949,
+      "end": 929943033,
+      "entries": 11,
+      "bytes": 52375084
+    },
+    {
+      "start": 938422123,
+      "end": 939788142,
+      "entries": 1,
+      "bytes": 1366019
+    },
+    {
+      "start": 959835349,
+      "end": 962378283,
+      "entries": 2,
+      "bytes": 2542934
+    },
+    {
+      "start": 975382924,
+      "end": 976795581,
+      "entries": 1,
+      "bytes": 1412657
+    },
+    {
+      "start": 989266184,
+      "end": 990328049,
+      "entries": 1,
+      "bytes": 1061865
+    },
+    {
+      "start": 1001091516,
+      "end": 1050151749,
+      "entries": 12,
+      "bytes": 49060233
+    },
+    {
+      "start": 1063363889,
+      "end": 1064308028,
+      "entries": 1,
+      "bytes": 944139
+    },
+    {
+      "start": 1096217027,
+      "end": 1108894455,
+      "entries": 6,
+      "bytes": 12677428
+    },
+    {
+      "start": 1120329539,
+      "end": 1121198799,
+      "entries": 1,
+      "bytes": 869260
+    },
+    {
+      "start": 1131482342,
+      "end": 1132754645,
+      "entries": 1,
+      "bytes": 1272303
+    },
+    {
+      "start": 1159471743,
+      "end": 1221645265,
+      "entries": 15,
+      "bytes": 62173522
+    },
+    {
+      "start": 1230554264,
+      "end": 1235270935,
+      "entries": 2,
+      "bytes": 4716671
+    },
+    {
+      "start": 1244897509,
+      "end": 1245740682,
+      "entries": 1,
+      "bytes": 843173
+    },
+    {
+      "start": 1263418811,
+      "end": 1328333979,
+      "entries": 33,
+      "bytes": 64915168
+    },
+    {
+      "start": 1818324571,
+      "end": 1820156594,
+      "entries": 1,
+      "bytes": 1832023
+    },
+    {
+      "start": 1834800830,
+      "end": 1882906842,
+      "entries": 12,
+      "bytes": 48106012
+    },
+    {
+      "start": 1894623548,
+      "end": 1924684494,
+      "entries": 6,
+      "bytes": 30060946
+    },
+    {
+      "start": 1953068732,
+      "end": 1965787758,
+      "entries": 5,
+      "bytes": 12719026
+    },
+    {
+      "start": 1980889567,
+      "end": 1997856188,
+      "entries": 4,
+      "bytes": 16966621
+    },
+    {
+      "start": 2012191834,
+      "end": 2047298509,
+      "entries": 10,
+      "bytes": 35106675
+    },
+    {
+      "start": 2175012651,
+      "end": 2189439931,
+      "entries": 12,
+      "bytes": 14427280
+    },
+    {
+      "start": 2247677625,
+      "end": 2248997399,
+      "entries": 1,
+      "bytes": 1319774
+    },
+    {
+      "start": 2708045940,
+      "end": 2719944342,
+      "entries": 4,
+      "bytes": 11898402
+    },
+    {
+      "start": 2730260092,
+      "end": 2731283069,
+      "entries": 1,
+      "bytes": 1022977
+    },
+    {
+      "start": 2748123892,
+      "end": 2749286256,
+      "entries": 1,
+      "bytes": 1162364
+    },
+    {
+      "start": 2761087432,
+      "end": 2775657376,
+      "entries": 4,
+      "bytes": 14569944
+    },
+    {
+      "start": 2793064906,
+      "end": 2794690023,
+      "entries": 1,
+      "bytes": 1625117
+    },
+    {
+      "start": 2803318287,
+      "end": 2813281906,
+      "entries": 2,
+      "bytes": 9963619
+    },
+    {
+      "start": 2823017024,
+      "end": 2830065044,
+      "entries": 3,
+      "bytes": 7048020
+    },
+    {
+      "start": 2842085802,
+      "end": 2850914753,
+      "entries": 4,
+      "bytes": 8828951
+    },
+    {
+      "start": 2861249145,
+      "end": 2868754691,
+      "entries": 3,
+      "bytes": 7505546
+    },
+    {
+      "start": 2883456706,
+      "end": 2884349374,
+      "entries": 1,
+      "bytes": 892668
+    },
+    {
+      "start": 4938033850,
+      "end": 4970141266,
+      "entries": 34,
+      "bytes": 32107416
+    },
+    {
+      "start": 5005051876,
+      "end": 5013039472,
+      "entries": 6,
+      "bytes": 7987596
+    },
+    {
+      "start": 5068634464,
+      "end": 5082674580,
+      "entries": 13,
+      "bytes": 14040116
+    }
+  ],
+  "download_range_bytes": 880068098
+}

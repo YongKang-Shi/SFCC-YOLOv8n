@@ -1,0 +1,36 @@
+PlantDoc validation-split verification
+mode: list; seed: 20261002; val ratio: 10%
+train images: 2119; val images: 236; test images: 237
+train/val overlap: 0
+missing label files for val: 0
+
+id  class                                 train  val  val_share  test
+ 0  Apple Scab Leaf                           74    9     10.8%    10
+ 1  Apple leaf                                74    8      9.8%     9
+ 2  Apple rust leaf                           71    8     10.1%    10
+ 3  Bell_pepper leaf spot                     55    7     11.3%     9
+ 4  Bell_pepper leaf                          48    5      9.4%     8
+ 5  Blueberry leaf                            94   12     11.3%    11
+ 6  Cherry leaf                               42    5     10.6%    10
+ 7  Corn Gray leaf spot                       57    7     10.9%     4
+ 8  Corn leaf blight                         162   18     10.0%    12
+ 9  Corn rust leaf                            94   12     11.3%    10
+10  Peach leaf                                92   11     10.7%     9
+11  Potato leaf early blight                 101   11      9.8%     8
+12  Potato leaf late blight                   88   10     10.2%     8
+13  Potato leaf                                3    0      0.0%     0
+14  Raspberry leaf                           101   11      9.8%     7
+15  Soyabean leaf                             51    6     10.5%     8
+16  Squash Powdery mildew leaf               112   13     10.4%     6
+17  Strawberry leaf                           79    9     10.2%     8
+18  Tomato two spotted spider mites leaf       2    0      0.0%     0
+19  Tomato Early blight leaf                  73    8      9.9%     9
+20  Tomato Septoria leaf spot                126   14     10.0%    11
+21  Tomato leaf bacterial spot                93   11     10.6%     9
+22  Tomato leaf late blight                   92   10      9.8%    10
+23  Tomato leaf mosaic virus                  40    5     11.1%    10
+24  Tomato leaf yellow virus                  63    7     10.0%     6
+25  Tomato leaf                               57    7     10.9%     8
+26  Tomato mold leaf                          76    9     10.6%     6
+27  grape leaf black rot                      50    6     10.7%     8
+28  grape leaf                                51    6     10.5%    12

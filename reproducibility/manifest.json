@@ -1,0 +1,159 @@
+{
+  "source_commit": "808984c6cf32f4ac9cb28f52fd74d13b9d6ad6a0",
+  "main_result_count": 12,
+  "ablation_result_count": 36,
+  "seeds": [
+    404,
+    101,
+    303,
+    2026,
+    3407,
+    606
+  ],
+  "runs": [
+    {
+      "seed": 404,
+      "model": "yolov8n",
+      "metrics_file": "main_results/yolov8n_seed404.json",
+      "checkpoint_file": "checkpoints/yolov8n_seed404.best.pt",
+      "checkpoint_sha256": "7964D8934AFF1D0F04DDA8DFAD3054961A226BEB994FCDBDC98B297FB0C80AB3",
+      "precision": 0.5624067223125804,
+      "recall": 0.5425059174819611,
+      "map50": 0.5741636331645092,
+      "map50_95": 0.448843286352364,
+      "tail_ap_evaluable": 0.43833260767745313
+    },
+    {
+      "seed": 404,
+      "model": "sfcc",
+      "metrics_file": "main_results/sfcc_seed404.json",
+      "checkpoint_file": "checkpoints/sfcc_seed404.best.pt",
+      "checkpoint_sha256": "C9156942D6DF98EAF3DE5C9E0210FEB15407806D83D74829AB279D1531DF2095",
+      "precision": 0.6022790782045094,
+      "recall": 0.5954672502010736,
+      "map50": 0.6315797475309601,
+      "map50_95": 0.48966243833788875,
+      "tail_ap_evaluable": 0.5033876172600826
+    },
+    {
+      "seed": 101,
+      "model": "yolov8n",
+      "metrics_file": "main_results/yolov8n_seed101.json",
+      "checkpoint_file": "checkpoints/yolov8n_seed101.best.pt",
+      "checkpoint_sha256": "F7A366803FB1CEB65C07A32CEE698E4362386A0914C4F3703D6FA44A04076311",
+      "precision": 0.5429858913828645,
+      "recall": 0.5675667335924341,
+      "map50": 0.5785754921845493,
+      "map50_95": 0.45030866137712117,
+      "tail_ap_evaluable": 0.4310911018168912
+    },
+    {
+      "seed": 101,
+      "model": "sfcc",
+      "metrics_file": "main_results/sfcc_seed101.json",
+      "checkpoint_file": "checkpoints/sfcc_seed101.best.pt",
+      "checkpoint_sha256": "60482810E3E2DC02CF40F1FA025F923522629599AB6D67E6485E4341B70FBAEC",
+      "precision": 0.5508035973016485,
+      "recall": 0.5915538487414036,
+      "map50": 0.6076575051940637,
+      "map50_95": 0.47854580055155993,
+      "tail_ap_evaluable": 0.4853032364568775
+    },
+    {
+      "seed": 303,
+      "model": "yolov8n",
+      "metrics_file": "main_results/yolov8n_seed303.json",
+      "checkpoint_file": "checkpoints/yolov8n_seed303.best.pt",
+      "checkpoint_sha256": "C1D6F5D0FC9B149BAEEC2D65E8CD5A56D2EEB78BDD0E274700A5D5E4E661B396",
+      "precision": 0.5232299823286777,
+      "recall": 0.6547861311746305,
+      "map50": 0.5917859227499217,
+      "map50_95": 0.46306709268061225,
+      "tail_ap_evaluable": 0.4479461215654148
+    },
+    {
+      "seed": 303,
+      "model": "sfcc",
+      "metrics_file": "main_results/sfcc_seed303.json",
+      "checkpoint_file": "checkpoints/sfcc_seed303.best.pt",
+      "checkpoint_sha256": "B1D4496B678CB225C0FC98B40807A8E7B9321D6D851BFAC014B0E0236FAA4387",
+      "precision": 0.5447922217752675,
+      "recall": 0.6329266992684831,
+      "map50": 0.6248678110287931,
+      "map50_95": 0.4862299849077476,
+      "tail_ap_evaluable": 0.5012777480337108
+    },
+    {
+      "seed": 2026,
+      "model": "yolov8n",
+      "metrics_file": "main_results/yolov8n_seed2026.json",
+      "checkpoint_file": "checkpoints/yolov8n_seed2026.best.pt",
+      "checkpoint_sha256": "93CC30B218CF587395E7934320DA57FD36182B9F7640EEA9995CEB6F15E3E51B",
+      "precision": 0.5737858548957808,
+      "recall": 0.6022068025138559,
+      "map50": 0.6189569754816561,
+      "map50_95": 0.4798583904861795,
+      "tail_ap_evaluable": 0.4727202568841279
+    },
+    {
+      "seed": 2026,
+      "model": "sfcc",
+      "metrics_file": "main_results/sfcc_seed2026.json",
+      "checkpoint_file": "checkpoints/sfcc_seed2026.best.pt",
+      "checkpoint_sha256": "BF200CF08124B5D7E5C88CDAD9F43B9C15B68B384EEC4F522271354505BDB41B",
+      "precision": 0.5956789358706551,
+      "recall": 0.5841842538938558,
+      "map50": 0.6398798266658673,
+      "map50_95": 0.4968341499905461,
+      "tail_ap_evaluable": 0.5243436804062852
+    },
+    {
+      "seed": 3407,
+      "model": "yolov8n",
+      "metrics_file": "main_results/yolov8n_seed3407.json",
+      "checkpoint_file": "checkpoints/yolov8n_seed3407.best.pt",
+      "checkpoint_sha256": "6AC58CD4EE67C543C024E8E3A34A872A15762FED1E42E7E449E3B1291F03A010",
+      "precision": 0.5309139513706285,
+      "recall": 0.6392963476169838,
+      "map50": 0.6040584884268212,
+      "map50_95": 0.47103997191801894,
+      "tail_ap_evaluable": 0.4829316446103556
+    },
+    {
+      "seed": 3407,
+      "model": "sfcc",
+      "metrics_file": "main_results/sfcc_seed3407.json",
+      "checkpoint_file": "checkpoints/sfcc_seed3407.best.pt",
+      "checkpoint_sha256": "13988BFC454973A610EC83F477516159E8654FC930308AD8E2842DEC5FD43BFC",
+      "precision": 0.5976791493552523,
+      "recall": 0.6136651027522094,
+      "map50": 0.6265576573809649,
+      "map50_95": 0.48550092982152193,
+      "tail_ap_evaluable": 0.4940959501553306
+    },
+    {
+      "seed": 606,
+      "model": "yolov8n",
+      "metrics_file": "main_results/yolov8n_seed606.json",
+      "checkpoint_file": "checkpoints/yolov8n_seed606.best.pt",
+      "checkpoint_sha256": "4A1A5CEC59CFAC0EAE15DE574D3EE7ADC7C082FDBF82E3369BCD9F0C5672138E",
+      "precision": 0.5567664864045687,
+      "recall": 0.613918605284816,
+      "map50": 0.6199252518990461,
+      "map50_95": 0.4848489355362436,
+      "tail_ap_evaluable": 0.5004277478889503
+    },
+    {
+      "seed": 606,
+      "model": "sfcc",
+      "metrics_file": "main_results/sfcc_seed606.json",
+      "checkpoint_file": "checkpoints/sfcc_seed606.best.pt",
+      "checkpoint_sha256": "9856682F55D0527DBC4717265F4BF74987680590DA41B1ECF3F100E37AABEE6E",
+      "precision": 0.5838123626082338,
+      "recall": 0.6216647233891304,
+      "map50": 0.6462360725097464,
+      "map50_95": 0.4981907360941484,
+      "tail_ap_evaluable": 0.5230383277870811
+    }
+  ]
+}
